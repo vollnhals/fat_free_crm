@@ -17,6 +17,7 @@
 
 module FatFreeCRM
   class Tabs
+    cattr_accessor :group_tabs
     cattr_accessor :main
     cattr_accessor :admin
 
@@ -30,14 +31,19 @@ module FatFreeCRM
       @@admin || reload!(:admin)
     end
 
+    def self.group_tabs
+      @@group_tabs || reload!(:group_tabs)
+    end
+
     # Make it possible to reload tabs (:main, :admin, or both).
     #----------------------------------------------------------------------------
     def self.reload!(main_or_admin = nil)
       return if ENV['RAILS_ENV'].nil? || !ActiveRecord::Base.connection.tables.include?("settings")
       case main_or_admin
-        when :main  then @@main  = Setting[:tabs]
-        when :admin then @@admin = Setting[:admin_tabs]
-        when nil    then @@main  = Setting[:tabs]; @@admin = Setting[:admin_tabs]
+        when :main        then @@main  = Setting[:tabs]
+        when :admin       then @@admin = Setting[:admin_tabs]
+        when :group_tabs  then @@group_tabs = Setting[:group_tabs]
+        when nil          then @@main  = Setting[:tabs]; @@admin = Setting[:admin_tabs]; @@group_tabs = Setting[:group_tabs]
       end
     end
 

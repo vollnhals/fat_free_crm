@@ -16,7 +16,6 @@
 #------------------------------------------------------------------------------
 
 module ApplicationHelper
-
   def tabs(tabs = FatFreeCRM::Tabs.main)
     if tabs
       @current_tab ||= tabs.first[:text].downcase.to_sym # Select first tab by default.
