@@ -1,0 +1,17 @@
+%li[service]{ highlightable(dom_id(service, :tools)) }
+  .strip.none None
+  %div
+    .tools{ invisible, :id => dom_id(service, :tools) }
+      %small
+        = link_to_edit(service) + " | "
+        = link_to_delete(service) + "&nbsp;"
+    = link_to(service.name, service) << " &ndash; "
+    %tt
+      = service.category_id 
+      == added #{time_ago_in_words(service.created_at)} ago by 
+      == #{service.user.id == @current_user.id ? "me" : service.user.full_name}
+    - unless @current_user.preference[:service_outline] == "brief"
+      %dt
+        = number_to_currency(service.price) << " | "
+        = pluralize(service.service_packages.count, "packaged services")
+      = hook(:service_bottom, self, :service => service)

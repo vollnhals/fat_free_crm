@@ -1,0 +1,18 @@
+= styles_for :services
+
+.title_tools
+  = link_to_inline(:create_service, new_service_path) << " | "
+  = link_to_inline(:options, options_services_path)
+
+.title
+  %span#create_service_title Services
+  = image_tag("loading.gif", :size => "16x16", :id => "loading", :style => "display: none;")
+.remote#options{ hidden }
+.remote#create_service{ hidden }
+
+.list#services
+  - unless @services.empty?
+    = render :partial => "service", :collection => @services
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"

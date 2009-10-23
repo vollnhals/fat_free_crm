@@ -1,0 +1,11 @@
+- remote_form_for(@service, :html => one_submit_only(:service)) do |f|
+  = link_to_close new_service_path
+  = hidden_field_tag "service[user_id]", @current_user.id
+  = f.error_messages
+  = render :partial => "services/top_section",  :locals => { :f => f }
+  = render :partial => "services/permissions",  :locals => { :f => f }
+  .buttonbar
+    = f.submit "Create Service"
+    or 
+    = link_to_cancel new_service_path
+    
