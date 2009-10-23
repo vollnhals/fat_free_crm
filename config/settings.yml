@@ -31,6 +31,12 @@
 
 :base_url: ""
 
+:group_tabs: [
+  { :active : true,  :text : "A",     :url : { :controller : "/"              } },
+  { :active : false, :text : "B",     :url : { :controller : "tasks"          } },
+  { :active : false, :text : "C",     :url : { :controller : "campaigns"      } }
+]
+
 :tabs: [
   { :active : true,  :text : "Dashboard",     :url : { :controller : "/"              } },
   { :active : false, :text : "Tasks",         :url : { :controller : "tasks"          } },
@@ -38,7 +44,10 @@
   { :active : false, :text : "Leads",         :url : { :controller : "leads"          } },
   { :active : false, :text : "Accounts",      :url : { :controller : "accounts"       } },
   { :active : false, :text : "Contacts",      :url : { :controller : "contacts"       } },
-  { :active : false, :text : "Opportunities", :url : { :controller : "opportunities"  } }
+  { :active : false, :text : "Opportunities", :url : { :controller : "opportunities"  } },
+  { :active : false, :text : "Quotes", :url : { :controller : "opportunities"  } },
+  { :active : false, :text : "Contracts", :url : { :controller : "opportunities"  } },
+  { :active : false, :text : "Products", :url : { :controller : "opportunities"  } }
 ]
 
 :admin_tabs: [
