@@ -1,4 +1,4 @@
-=== Welcome to Fat Free CRM!
+=== Welcome to Fat Free CRM with Magic!
 
 Fat Free CRM is next generation open source CRM platform. Active development
 has started in November 2008; new features, enhancements, and updates appear
@@ -17,8 +17,8 @@ Here are the steps to get Fat Free CRM up and running on your system.
 
 === Downloads
 
-* Git source code repository: git://github.com/michaeldv/fat_free_crm.git
-* .zip or .tgz archives: http://github.com/michaeldv/fat_free_crm/downloads
+* Git source code repository: git://github.com/vollnhals/fat_free_crm.git
+* .zip or .tgz archives: http://github.com/vollnhals/fat_free_crm/downloads
 
 === Resources
 
