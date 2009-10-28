@@ -1,0 +1,33 @@
+id = dom_id(@service)
+
+if params[:cancel] == "true" # <----------------- Hide [Edit Service]
+
+  if called_from_landing_page?
+    page.call "crm.flip_form", :edit_service
+    page.call "crm.set_title", :edit_service, @service.name
+  else                                            # Called from services list item...
+    page[id].replace :partial => "service", :collection => [ @service ]
+  end
+
+else # <----------------------------------------  Show [Edit Service] form.
+
+  if params[:cancel].blank?                       # Called from services list item...
+    if @previous                                  # Hide open [Edit Service] form if any.
+      if @previous.is_a?(Service)
+        page[dom_id(@previous)].replace :partial => "service", :collection => [ @previous ]
+      else
+        page.call "crm.flick", "service_#{@previous}", :remove
+      end
+    end
+    page.call "crm.highlight_off", id             # Disable onMouseOver for the list item.
+    page.call "crm.hide_form", :create_service    # Hide [Create Service] form if any.
+    page[id].replace_html :partial => "edit"      # Show [Edit Service] form.
+
+  elsif params[:cancel] == "false"                # Called from title of the service landing page...
+    page[:edit_service].replace_html :partial => "edit"
+    page.call "crm.flip_form", :edit_service
+    page.call "crm.set_title", :edit_service, "Edit #{@service.name}"
+  end
+  page[:service_name].focus
+
+end

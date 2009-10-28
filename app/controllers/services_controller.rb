@@ -119,7 +119,7 @@ class ServicesController < ApplicationController
   # GET /services/search/query                                             AJAX
   #----------------------------------------------------------------------------
   def search
-    @service = get_services(:query => params[:query], :page => 1)
+    @services = get_services(:query => params[:query], :page => 1)
 
     respond_to do |format|
       format.js   { render :action => :index }

@@ -1,0 +1,22 @@
+= styles_for :task
+
+#confirm{ hidden }
+.title_tools#menu
+  = link_to_inline(:edit_service, edit_service_path(@service), :text => "Edit") + " | "
+  = link_to_function("Delete?", confirm_delete(@service))
+.title#edit_service_title= @service.name
+
+%div#edit_service{ hidden }
+
+= render :partial => "common/new_comment", :locals => { :commentable => @service }
+= render :partial => "common/comment", :collection => @service.comments
+
+-#-----------------------------------------------------------------------------
+%br
+= inline :create_task, new_task_path, { :class => "subtitle_tools", :related => dom_id(@service) }
+.subtitle#create_task_title Tasks
+.remote#create_task{ hidden }
+.log#tasks
+  = render :partial => "common/tasks"
+
+= hook(:show_service_bottom, self)

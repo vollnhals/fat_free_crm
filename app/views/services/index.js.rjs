@@ -1,0 +1,6 @@
+unless @services.blank?
+  page[:services].replace_html render(:partial => "service", :collection => @services)
+else
+  page[:services].replace_html render(:partial => "common/empty")
+end
+page[:paginate].replace_html render(:partial => "common/paginate")
