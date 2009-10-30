@@ -7,11 +7,15 @@
     = stylesheet_link_tag "screen", "facebox.css", :cache => "cache/all"
     - unless tabless_layout?
       = stylesheet_link_tag "calendar_date_select/default.css"
+
+    = stylesheet_link_tag "yuiBuild/fonts/fonts-min.css", "yuiBuild/calendar/assets/skins/sam/calendar.css", "yuiBuild/datatable/assets/skins/sam/datatable.css"
     %style= yield :styles
 
     = javascript_include_tag :defaults, "facebox.js", :cache => "cache/all"
     - unless tabless_layout?
       = javascript_include_tag "crm_classes.js", "calendar_date_select/calendar_date_select.js", "calendar_date_select/format_american.js", :cache => "cache/classes"
+    
+    = javascript_include_tag "yuiBuild/yahoo-dom-event/yahoo-dom-event.js", "yuiBuild/calendar/calendar-min.js", "yuiBuild/dragdrop/dragdrop-min.js", "yuiBuild/element/element-min.js", "yuiBuild/datasource/datasource-min.js", "yuiBuild/connection/connection-min.js", "yuiBuild/datatable/datatable-min.js", "yuiBuild/json/json-min.js", "services.js"
     %script{:type => "text/javascript"}= yield :javascript
 
   %body

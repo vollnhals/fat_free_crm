@@ -1,4 +1,4 @@
-class Service < ActiveRecord::Base	
+class Service < ActiveRecord::Base
   enum_attr :unit, %w(piece hour)
   enum_attr :accounting_period, %w(once monthly yearly)
 
@@ -7,7 +7,8 @@ class Service < ActiveRecord::Base
   has_many :tasks, :as => :asset, :dependent => :destroy, :order => 'created_at DESC'
   has_many :service_packages, :dependent => :destroy
   has_many :packaged_services, :class_name => 'Service', :through => :service_packages
-
+  has_many    :activities, :as => :subject, :order => 'created_at DESC'
+  
   named_scope :created_by, lambda { |user| { :conditions => "user_id = #{user.id}" } }
   named_scope :assigned_to, lambda { |user| { :conditions => "assigned_to = #{user.id}" } }
 		
@@ -21,6 +22,7 @@ class Service < ActiveRecord::Base
   acts_as_paranoid
 
   validates_presence_of :name, :price
+  validates_format_of :price_before_type_cast, :with => /[,\.0-9]/
   validates_uniqueness_of :name
   validate :users_for_shared_access
 
