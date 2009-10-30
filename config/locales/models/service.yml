@@ -1,0 +1,8 @@
+de:
+  activerecord:
+    errors:
+      models:
+        service:
+          attributes:
+            price_before_type_cast:
+              invalid: "^Preis ist in keinem gültigen Währungsformat"
