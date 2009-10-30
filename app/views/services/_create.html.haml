@@ -1,6 +1,27 @@
 - remote_form_for(@service, :html => one_submit_only(:service)) do |f|
   = link_to_close new_service_path
   = hidden_field_tag "service[user_id]", @current_user.id
+
+  %div{ :id => "servicesContainer" }
+    %table{ :id => "datasourceTable" }
+      %thead
+        %tr
+          %th== AAA
+          %th== BBB
+          %th== CCC
+      %tbody
+        %tr
+          %td== 1
+          %td== 2
+          %td== 3
+        %tr
+          %td== 4
+          %td== 5
+          %td== 6
+        %tr
+          %td== 7
+          %td== 8
+          %td== 9
   = f.error_messages
   = render :partial => "services/top_section",  :locals => { :f => f }
   = render :partial => "services/permissions",  :locals => { :f => f }

@@ -6,29 +6,31 @@ ActionView::Helpers::InstanceTag.class_eval do
 
   alias original_to_input_field_tag to_input_field_tag
   def to_input_field_tag(field_type, options = {})
-    options.symbolize_keys!
-    # numbers and dates/times should be localized unless value is already defined
-    if object && options[:value].blank? && object.respond_to?(:column_for_attribute) && column = object.column_for_attribute(method_name)
-      # a little verbose
-      if column.number? || column.date? || column.time?
-        value = object.send(method_name)
+    unless object.errors
+      options.symbolize_keys!
+      # numbers and dates/times should be localized unless value is already defined
+      if object && options[:value].blank? && object.respond_to?(:column_for_attribute) && column = object.column_for_attribute(method_name)
+        # a little verbose
+        if column.number? || column.date? || column.time?
+          value = object.send(method_name)
 
-        if column.number?
-          number_options = I18n.t(:'number.format')
-          separator = options.delete(:separator) || number_options[:separator]
-          delimiter = options.delete(:delimiter) || number_options[:delimiter]
-          precision = options.delete(:precision) || number_options[:precision]
-          opts = { :separator => separator, :delimiter => delimiter, :precision => precision }
-          # integers don't need a precision
-          opts.merge!(:precision => 0) if column.type == :integer
+          if column.number?
+            number_options = I18n.t(:'number.format')
+            separator = options.delete(:separator) || number_options[:separator]
+            delimiter = options.delete(:delimiter) || number_options[:delimiter]
+            precision = options.delete(:precision) || number_options[:precision]
+            opts = { :separator => separator, :delimiter => delimiter, :precision => precision }
+            # integers don't need a precision
+            opts.merge!(:precision => 0) if column.type == :integer
 
-          options[:value] = number_with_precision(value, opts)
-        elsif column.date? || column.time?
-          options[:value] = value ? I18n.l(value, :format => options.delete(:format)) : nil
+            options[:value] = number_with_precision(value, opts)
+          elsif column.date? || column.time?
+            options[:value] = value ? I18n.l(value, :format => options.delete(:format)) : nil
+          end
         end
       end
     end
-
+    
     original_to_input_field_tag(field_type, options)
   end
 end

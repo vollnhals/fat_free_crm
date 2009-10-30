@@ -45,9 +45,9 @@
   { :active : false, :text : "Accounts",      :url : { :controller : "accounts"       } },
   { :active : false, :text : "Contacts",      :url : { :controller : "contacts"       } },
   { :active : false, :text : "Opportunities", :url : { :controller : "opportunities"  } },
-  { :active : false, :text : "Quotes", :url : { :controller : "opportunities"  } },
-  { :active : false, :text : "Contracts", :url : { :controller : "opportunities"  } },
-  { :active : false, :text : "Products", :url : { :controller : "opportunities"  } }
+  { :active : false, :text : "Quotes",        :url : { :controller : "/"  } },
+  { :active : false, :text : "Contracts",     :url : { :controller : "/"  } },
+  { :active : false, :text : "Services",      :url : { :controller : "services"  } }
 ]
 
 :admin_tabs: [
