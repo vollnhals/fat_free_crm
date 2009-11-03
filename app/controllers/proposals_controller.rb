@@ -55,6 +55,7 @@ class ProposalsController < ApplicationController
   # GET /proposals/new.xml
   def new
     @proposal = Proposal.new(:user => @current_user)
+    @abbreviation = Setting.proposal_abbreviation[0..-1]
     @users = User.except(@current_user).all
     if params[:related]
       model, id = params[:related].split("_")

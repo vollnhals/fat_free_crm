@@ -161,3 +161,10 @@ task_completed: [
   [ "This month", :completed_this_month ],
   [ "Last month", :completed_last_month ]
 ]
+
+# NOTE: no tabs allowed. use spaces instead.
+proposal_abbreviation: [
+  [ "WEB", :WEB ],
+  [ "FS",  :FS  ],
+  [ "LVN", :LVN ]
+]

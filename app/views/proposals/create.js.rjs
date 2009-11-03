@@ -9,6 +9,9 @@ if @proposal.valid?
   page.call "crm.flick", :empty, :remove
 else
   page[:create_proposal].replace_html :partial => "create"
+  page.call "crm.date_select_popup", :proposal_start_date
+  page.call "crm.date_select_popup", :proposal_end_date
+  page.call "crm.date_select_popup", :proposal_deadline
   page[:create_proposal].visual_effect :shake, :duration => 0.25, :distance => 6
   page[:proposal_name].focus
 end

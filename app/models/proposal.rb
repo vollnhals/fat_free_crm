@@ -6,11 +6,29 @@
 # :access, :string, :limit => 8, :default => "Private"
 # :user_id, :integer
 # :assigned_to, :integer
+#    add_column :proposals, :abbreviation, :string, :default => "WEB"
+#    add_column :proposals, :state, :string, :default => "draft"
+#    add_column :proposals, :deadline, :date
+#    add_column :proposals, :client_account_id, :integer
+#    add_column :proposals, :client_contact_id, :integer
+#    add_column :proposals, :client_technical_contact_id, :integer
+#    add_column :proposals, :employee_contact_id, :integer
+#    add_column :proposals, :employee_technical_contact_id, :integer
 #
 class Proposal < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :assignee, :class_name => "User", :foreign_key => :assigned_to
-  has_many :tasks, :as => :asset, :dependent => :destroy, :order => 'created_at DESC'
+  enum_attr :abbreviation, %w(WEB FS LVN) 
+
+  belongs_to  :user
+  belongs_to  :assignee, :class_name => "User", :foreign_key => :assigned_to
+
+  belongs_to  :client_account, :class_name => "Account"
+  belongs_to  :client_contact, :class_name => "Contact"
+  belongs_to  :client_technical_contact, :class_name => "Contact"
+  # TODO when we have an employees module we should link proposals to employees instead of contacts. we assume that contacts are persons not working in the crm organisation but in other companies (clients).
+  belongs_to  :employee_contact, :class_name => "Contact"
+  belongs_to  :employee_technical_contact, :class_name => "Contact"
+
+  has_many    :tasks, :as => :asset, :dependent => :destroy, :order => 'created_at DESC'
   has_many    :activities, :as => :subject, :order => 'created_at DESC'
 
   named_scope :created_by, lambda { |user| { :conditions => "user_id = #{user.id}" } }
@@ -18,7 +36,8 @@ class Proposal < ActiveRecord::Base
 
   simple_column_search :name, :match => :middle, :escape => lambda { |query| query.gsub(/[^\w\s\-\.']/, "").strip }
 
-  versioned
+  # versioning plugin not installed properly -> disable versioning 
+  #versioned
   uses_user_permissions
   acts_as_commentable
   acts_as_paranoid

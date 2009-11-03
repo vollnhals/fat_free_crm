@@ -7,11 +7,10 @@
         = link_to_delete(proposal) + "&nbsp;"
     = link_to(proposal.name, proposal) << " &ndash; "
     %tt
-      = proposal.category_id 
+      = proposal.name 
       == added #{time_ago_in_words(proposal.created_at)} ago by 
       == #{proposal.user.id == @current_user.id ? "me" : proposal.user.full_name}
     - unless @current_user.preference[:proposal_outline] == "brief"
       %dt
-        = number_to_currency(proposal.price) << " | "
-        = pluralize(proposal.proposal_packages.count, "packaged proposals")
+        = proposal.abbreviation 
       = hook(:proposal_bottom, self, :proposal => proposal)
