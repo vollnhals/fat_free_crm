@@ -17,7 +17,7 @@
 
 class CommentsController < ApplicationController
   before_filter :require_user
-  COMMENTABLE = %w(account_id campaign_id contact_id lead_id opportunity_id task_id service_id).freeze
+  COMMENTABLE = %w(account_id campaign_id contact_id lead_id opportunity_id task_id service_id proposal_id).freeze
 
   # GET /comments
   # GET /comments.xml                                           not implemented

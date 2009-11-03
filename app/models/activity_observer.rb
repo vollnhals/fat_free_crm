@@ -16,7 +16,7 @@
 #------------------------------------------------------------------------------
 
 class ActivityObserver < ActiveRecord::Observer
-  observe Account, Campaign, Contact, Lead, Opportunity, Task, Service
+  observe Account, Campaign, Contact, Lead, Opportunity, Task, Service, Proposal
   @@tasks = {}
   @@leads = {}
 

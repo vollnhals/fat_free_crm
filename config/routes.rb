@@ -13,6 +13,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :contacts,      :has_many => :comments, :collection => { :search => :get, :auto_complete => :post, :options => :get, :redraw => :post }
   map.resources :opportunities, :has_many => :comments, :collection => { :search => :get, :auto_complete => :post, :options => :get, :redraw => :post }
   map.resources :services,      :has_many => :comments, :collection => { :search => :get, :auto_complete => :post, :options => :get, :redraw => :post }
+  map.resources :proposals,     :has_many => :comments, :collection => { :search => :get, :auto_complete => :post, :options => :get, :redraw => :post }
 
   map.signup  "signup",  :controller => "users",           :action => "new"
   map.profile "profile", :controller => "users",           :action => "show"
