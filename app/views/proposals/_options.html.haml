@@ -1,0 +1,12 @@
+%p
+  = link_to_close options_proposals_path
+  = hidden_field_tag "proposal[user_id]", @current_user.id
+  == Sort proposals by #{link_to(@sort_by, "#", :id => :sort_by)}.
+  == Show #{link_to(@per_page, "#", :id => :per_page)} proposal records per page
+  == using #{link_to(@outline, "#", :id => :outline)} format.
+%p
+
+%script
+  = render :partial => "sort_by"
+  = render :partial => "common/per_page"
+  = render :partial => "common/outline"

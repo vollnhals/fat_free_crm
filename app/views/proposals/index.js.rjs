@@ -1,0 +1,6 @@
+unless @proposals.blank?
+  page[:proposals].replace_html render(:partial => "proposal", :collection => @proposals)
+else
+  page[:proposals].replace_html render(:partial => "common/empty")
+end
+page[:paginate].replace_html render(:partial => "common/paginate")

@@ -10,6 +10,41 @@
 .remote#options{ hidden }
 .remote#create_service{ hidden }
 
+%div{ :class => "yui-skin-sam" }
+  %div{ :id => "markup" }
+    %table{ :id => "services" }
+      %thead
+        %tr
+          %th== AAA
+          %th== BBB
+          %th== CCC
+      %tbody
+        %tr
+          %td== 1
+          %td== 2
+          %td== 3
+        %tr
+          %td== 4
+          %td== 5
+          %td== 6
+        %tr
+          %td== 7
+          %td== 8
+          %td== 9
+        %tr
+          %td== 10
+          %td== 11
+          %td== 12
+%script{:type => "text/javascript", :charset => "utf-8"}
+  document.observe("dom:loaded", function() {
+  var myColumnDefs = [{key:'a',label:'a'},{key:'b',label:'b'},{key:'c',label:'c'}];
+  var myDataSource = new YAHOO.util.DataSource(YAHOO.util.Dom.get('services'));
+  myDataSource.responseType = YAHOO.util.DataSource.TYPE_HTMLTABLE;
+  myDataSource.responseSchema = {fields: [{key:'a'},{key:'b'},{key:'c'}]};
+  var myDataTable = new YAHOO.widget.DataTable('markup', myColumnDefs, myDataSource);
+  // alert('hello');
+  });
+
 .list#services
   - unless @services.empty?
     = render :partial => "service", :collection => @services

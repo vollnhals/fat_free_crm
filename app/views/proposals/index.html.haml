@@ -1,0 +1,20 @@
+= styles_for :proposals
+
+.title_tools
+  = link_to_inline(:create_proposal, new_proposal_path) << " | "
+  = link_to_inline(:options, options_proposals_path)
+
+.title
+  %span#create_proposal_title Proposals
+  = image_tag("loading.gif", :size => "16x16", :id => "loading", :style => "display: none;")
+.remote#options{ hidden }
+.remote#create_proposal{ hidden }
+
+.list#proposals
+  - unless @proposals.empty?
+    = render :partial => "proposal", :collection => @proposals
+  - else
+    = render :partial => "common/empty"
+#paginate= render :partial => "common/paginate"
+
+

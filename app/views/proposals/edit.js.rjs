@@ -1,0 +1,33 @@
+id = dom_id(@proposal)
+
+if params[:cancel] == "true" # <----------------- Hide [Edit Proposal]
+
+  if called_from_landing_page?
+    page.call "crm.flip_form", :edit_proposal
+    page.call "crm.set_title", :edit_proposal, @proposal.name
+  else                                            # Called from proposals list item...
+    page[id].replace :partial => "proposal", :collection => [ @proposal ]
+  end
+
+else # <----------------------------------------  Show [Edit Proposal] form.
+
+  if params[:cancel].blank?                       # Called from proposals list item...
+    if @previous                                  # Hide open [Edit Proposal] form if any.
+      if @previous.is_a?(Proposal)
+        page[dom_id(@previous)].replace :partial => "proposal", :collection => [ @previous ]
+      else
+        page.call "crm.flick", "proposal_#{@previous}", :remove
+      end
+    end
+    page.call "crm.highlight_off", id             # Disable onMouseOver for the list item.
+    page.call "crm.hide_form", :create_proposal    # Hide [Create Proposal] form if any.
+    page[id].replace_html :partial => "edit"      # Show [Edit Proposal] form.
+
+  elsif params[:cancel] == "false"                # Called from title of the proposal landing page...
+    page[:edit_proposal].replace_html :partial => "edit"
+    page.call "crm.flip_form", :edit_proposal
+    page.call "crm.set_title", :edit_proposal, "Edit #{@proposal.name}"
+  end
+  page[:proposal_name].focus
+
+end

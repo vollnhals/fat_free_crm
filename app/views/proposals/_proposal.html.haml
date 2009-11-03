@@ -1,0 +1,17 @@
+%li[proposal]{ highlightable(dom_id(proposal, :tools)) }
+  .strip.none None
+  %div
+    .tools{ invisible, :id => dom_id(proposal, :tools) }
+      %small
+        = link_to_edit(proposal) + " | "
+        = link_to_delete(proposal) + "&nbsp;"
+    = link_to(proposal.name, proposal) << " &ndash; "
+    %tt
+      = proposal.category_id 
+      == added #{time_ago_in_words(proposal.created_at)} ago by 
+      == #{proposal.user.id == @current_user.id ? "me" : proposal.user.full_name}
+    - unless @current_user.preference[:proposal_outline] == "brief"
+      %dt
+        = number_to_currency(proposal.price) << " | "
+        = pluralize(proposal.proposal_packages.count, "packaged proposals")
+      = hook(:proposal_bottom, self, :proposal => proposal)

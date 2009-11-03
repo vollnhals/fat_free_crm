@@ -10,6 +10,14 @@
         = f.text_field :price, :style => "width:324px"
     %tr
       %td{ :valign => :top }
+        .label.top.req New Service:
+        = f.text_field :name, :style => "width:324px", :id => 'new_service_name'
+    %tr
+      %td{ :valign => :top }
+        .label.top.req Active:
+        = f.check_box :name, :style => "width:324px"
+    %tr
+      %td{ :valign => :top }
         .label.top.req Assigned to:
         = collection_select :service, :assigned_to, @users, :id, :full_name, { :include_blank => "Myself" }, { :style => "width:160px" }
     = hook(:service_top_section_bottom, self, :f => f)

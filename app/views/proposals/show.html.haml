@@ -1,0 +1,22 @@
+= styles_for :task
+
+#confirm{ hidden }
+.title_tools#menu
+  = link_to_inline(:edit_proposal, edit_proposal_path(@proposal), :text => "Edit") + " | "
+  = link_to_function("Delete?", confirm_delete(@proposal))
+.title#edit_proposal_title= @proposal.name
+
+%div#edit_proposal{ hidden }
+
+= render :partial => "common/new_comment", :locals => { :commentable => @proposal }
+= render :partial => "common/comment", :collection => @proposal.comments
+
+-#-----------------------------------------------------------------------------
+%br
+= inline :create_task, new_task_path, { :class => "subtitle_tools", :related => dom_id(@proposal) }
+.subtitle#create_task_title Tasks
+.remote#create_task{ hidden }
+.log#tasks
+  = render :partial => "common/tasks"
+
+= hook(:show_proposal_bottom, self)

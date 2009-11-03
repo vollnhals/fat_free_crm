@@ -1,0 +1,12 @@
+- remote_form_for(@proposal, :html => one_submit_only(:proposal)) do |f|
+  = link_to_close new_proposal_path
+  = hidden_field_tag "proposal[user_id]", @current_user.id
+
+  = f.error_messages
+  = render :partial => "proposals/top_section",  :locals => { :f => f }
+  = render :partial => "proposals/permissions",  :locals => { :f => f }
+  .buttonbar
+    = f.submit "Create Proposal"
+    or 
+    = link_to_cancel new_proposal_path
+    
