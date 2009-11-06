@@ -15,3 +15,14 @@ config.action_controller.perform_caching             = false
 
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
+
+# use hirb
+config.gem 'hirb'
+
+if $0 == 'irb'
+  require 'hirb'
+  Hirb.enable
+
+  # show sql queries in console
+  ActiveRecord::Base.logger = Logger.new STDOUT
+end

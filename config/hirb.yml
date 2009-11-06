@@ -1,0 +1,13 @@
+:output:
+# Url Model
+  Url:
+    :options:
+      :fields:
+        - id
+        - name
+        - description
+        - quick_mode_tag_list
+  NamespaceTree:
+    :class: Hirb::Helpers::Tree
+    :output_method: to_tree
+    :ancestor: true
