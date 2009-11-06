@@ -1,24 +1,43 @@
+- edit ||= false
+= subtitle "proposal_general", false, "General Information"
 .section
-  %table{ :width => 500, :cellpadding => 0, :cellspacing => 0 }
-    %tr
-      %td{ :colspan => 3, :valign => :top }
-        .label.top.req Name:
-        = f.text_field :name, :style => "width:324px"
-    %tr
-      %td{ :colspan => 3, :valign => :top }
-        .label.top.req Abbreviation
-    %tr
-      %td
-        .label Start Date:
-        = f.text_field :start_date, :value => f.object.start_date ? f.object.start_date.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
-      %td
-        .label End Date:
-        = f.text_field :end_date, :value => f.object.end_date ? f.object.end_date.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
-      %td
-        .label Deadline:
-        = f.text_field :deadline, :value => f.object.deadline ? f.object.deadline.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
-    %tr
-      %td{ :colspan => 3, :valign => :top }
-        .label.top.req Assigned to:
-        = collection_select :proposal, :assigned_to, @users, :id, :full_name, { :include_blank => "Myself" }, { :style => "width:160px" }
-    = hook(:proposal_top_section_bottom, self, :f => f)
+  #proposal_general
+    %table{ :width => 500, :cellpadding => 0, :cellspacing => 0 }
+      %tr
+        %td{ :valign => :top }
+          .label.top.req Name:
+          = f.text_field :name, :style => "width:324px"
+        %td{ :valign => :top }
+          .label.top.req Abbreviation
+          = f.enum_select :abbreviation, :style => "width:324px"
+
+= subtitle "proposal_contacts", false, "Contact Information"
+.section
+  #proposal_contacts
+    %table{ :width => 500, :cellpadding => 0, :cellspacing => 0 }
+      %tr
+        %td
+          = belongs_to_auto_completer :proposal, :client_contact, :full_name, :allow_free_text => true
+          = link_to_inline(:create_contact, new_contact_path)
+          .remote#create_contact{ hidden }
+      %tr
+        %td{ :colspan => 3, :valign => :top }
+          .label.top.req Assigned to:
+          = collection_select :proposal, :assigned_to, @users, :id, :full_name, { :include_blank => "Myself" }, { :style => "width:160px" }
+      = hook(:proposal_top_section_bottom, self, :f => f)
+
+= subtitle "proposal_dates", false, "Dates"
+.section
+  #proposal_dates
+    %table{ :width => 500, :cellpadding => 0, :cellspacing => 0 }
+      %tr
+        %td
+          .label Start Date:
+          = f.text_field :start_date, :value => f.object.start_date ? f.object.start_date.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
+        %td
+          .label End Date:
+          = f.text_field :end_date, :value => f.object.end_date ? f.object.end_date.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
+        %td
+          .label Deadline:
+          = f.text_field :deadline, :value => f.object.deadline ? f.object.deadline.to_s(:mmddyyyy) : "", :style => "width:110px", :autocomplete => :off
+
